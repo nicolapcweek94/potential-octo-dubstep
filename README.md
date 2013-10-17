@@ -3,6 +3,10 @@
 
 Potential Octo Dubstep is a simple CLI file manager written in Python. It can't do much - for now, at least.  
 
+Command list:  
+q: quit  
+enter: enter directory  
+
 The name comes from Github, obviously.
 
 Copyleft (c) 2013, Nicolapcweek94  
