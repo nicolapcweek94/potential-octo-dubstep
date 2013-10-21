@@ -5,7 +5,7 @@ Potential Octo Dubstep is a simple CLI file manager written in Python. It can't 
 
 Command list:  
 q: quit  
-d: deletes a file or folder (CAREFUL this also obliterates non-empty folders)
+d: deletes a file or folder (CAREFUL this also obliterates non-empty folders)  
 enter: enter directory  
 
 The name comes from Github, obviously.
