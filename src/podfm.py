@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import curses, os, os.path
+import curses, os, os.path, shutil
 
 def main(stdscr):
     path = '/home/wasp/'
@@ -15,11 +15,14 @@ def main(stdscr):
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     
-    for f in os.listdir(path):
-        if os.path.isdir(path + f):
-            ldir.append(f)
-        else:
-            lfile.append(f)
+    if os.path.isdir(path):
+        for f in os.listdir(path):
+            if os.path.isdir(path + f):
+                ldir.append(f)
+            else:
+                lfile.append(f)
+    else:
+        raise SystemExit(1)
 
     while True:
         stdscr.clear()
@@ -55,7 +58,9 @@ def main(stdscr):
                 selected = selected + 1
         
         elif chr(key) == '\n':
-            path = path + ls[offset + selected] + '/'
+            if os.path.isdir(path + ls[offset + selected]): 
+                path = path + ls[offset + selected] + '/'
+            
             selected = 0
             offset = 0
             ldir = []
@@ -66,7 +71,24 @@ def main(stdscr):
                     ldir.append(f)
                 else:
                     lfile.append(f)
-                            
+                                                        
+        elif key == ord('d'):
+            delpath = path + ls[offset + selected]
+            
+            if os.path.isdir(delpath):
+                shutil.rmtree(delpath)
+            else:
+                os.remove(delpath)
+
+            selected = selected - 1
+            ldir = []
+            lfile = []
+
+            for f in os.listdir(path):
+                if os.path.isdir(path + f):
+                    ldir.append(f)
+                else:
+                    lfile.append(f)
         
         elif key == ord('q'):
             break
